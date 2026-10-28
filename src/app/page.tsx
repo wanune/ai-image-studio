@@ -3,12 +3,23 @@
 import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Sparkles, Download, Loader2, ImageIcon, AlertCircle } from 'lucide-react';
+import { Sparkles, Download, Loader2, ImageIcon, AlertCircle, Lightbulb } from 'lucide-react';
 
 interface GeneratedImage {
   url: string;
   prompt: string;
 }
+
+const PROMPT_TEMPLATES = [
+  { label: '赛博朋克城市', prompt: 'A futuristic cyberpunk city at night, neon lights reflecting on wet streets, flying cars in the sky, rain, ultra detailed, cinematic lighting, 8K' },
+  { label: '水彩风景', prompt: 'A serene watercolor landscape painting of a misty mountain valley with a winding river, soft pastel colors, delicate brush strokes, artistic, gallery quality' },
+  { label: '奇幻森林', prompt: 'An enchanted forest with glowing mushrooms, fireflies, ancient twisted trees, magical atmosphere, volumetric light rays through the canopy, fantasy art style' },
+  { label: '太空站', prompt: 'Interior of a space station orbiting Saturn, large panoramic window showing the rings, sleek sci-fi design, ambient blue lighting, photorealistic' },
+  { label: '日式庭院', prompt: 'A traditional Japanese zen garden in autumn, red maple trees, stone lantern, koi pond with clear water, wooden bridge, peaceful atmosphere, golden hour light' },
+  { label: '机械生物', prompt: 'A mechanical dragon made of brass gears and copper pipes, steam rising from joints, intricate clockwork details, dark studio background, dramatic lighting' },
+  { label: '海底世界', prompt: 'An underwater coral reef teeming with colorful tropical fish, sunbeams piercing through crystal clear water, sea turtles, vibrant colors, nature photography style' },
+  { label: '复古海报', prompt: 'A vintage travel poster of Paris in the 1920s, art deco style, the Eiffel Tower at sunset, warm golden tones, elegant typography space, grain texture' },
+];
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
@@ -127,6 +138,27 @@ export default function Home() {
                   </>
                 )}
               </Button>
+            </div>
+          </div>
+
+          {/* Prompt Templates */}
+          <div className="mt-3">
+            <div className="mb-2 flex items-center gap-1.5 text-xs text-[#52525B]">
+              <Lightbulb className="h-3.5 w-3.5" />
+              <span>试试这些创意</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {PROMPT_TEMPLATES.map((tpl) => (
+                <button
+                  key={tpl.label}
+                  type="button"
+                  onClick={() => setPrompt(tpl.prompt)}
+                  disabled={loading}
+                  className="rounded-lg border border-[#27272A] bg-[#141416] px-3 py-1.5 text-xs text-[#A1A1AA] transition-all hover:border-[#A78BFA]/40 hover:bg-[#A78BFA]/10 hover:text-[#F4F4F5] disabled:opacity-40"
+                >
+                  {tpl.label}
+                </button>
+              ))}
             </div>
           </div>
         </section>
